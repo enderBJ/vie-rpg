@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0a0a12">
+<title>Vie RPG ⚔️</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a12;
+    --bg2: #11111f;
+    --bg3: #1a1a2e;
+    --gold: #c9a84c;
+    --gold2: #f0d080;
+    --gold3: #7a5f20;
+    --silver: #a0a8c0;
+    --red: #c0392b;
+    --green: #27ae60;
+    --blue: #2980b9;
+    --purple: #8e44ad;
+    --text: #e8e0d0;
+    --text2: #a09880;
+    --border: rgba(201,168,76,0.2);
+    --glow: 0 0 20px rgba(201,168,76,0.3);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Crimson Pro', serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(ellipse at 20% 20%, rgba(201,168,76,0.04) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(142,68,173,0.04) 0%, transparent 50%);
+  }
+
+  /* ---- HEADER ---- */
+  .header {
+    background: linear-gradient(180deg, rgba(201,168,76,0.08) 0%, transparent 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 20px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+    backdrop-filter: blur(10px);
+  }
+  .header-title {
+    font-family: 'Cinzel', serif;
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--gold);
+    letter-spacing: 2px;
+    text-shadow: var(--glow);
+  }
+  .header-xp {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    color: var(--gold2);
+    text-align: right;
+  }
+  .header-xp span {
+    font-size: 20px;
+    font-weight: 700;
+    display: block;
+  }
+
+  /* ---- NAV ---- */
+  .nav {
+    display: flex;
+    justify-content: space-around;
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 8px 0 12px;
+  }
+  .nav-btn {
+    background: none; border: none; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 3px; padding: 4px 12px;
+    color: var(--text2); font-size: 9px;
+    font-family: 'Cinzel', serif; letter-spacing: 0.5px;
+    transition: color 0.2s;
+  }
+  .nav-btn.active { color: var(--gold); }
+  .nav-btn .icon { font-size: 20px; }
+
+  /* ---- PAGES ---- */
+  .page { display: none; padding: 16px 16px 100px; }
+  .page.active { display: block; }
+
+  /* ---- CARDS ---- */
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0.5;
+  }
+  .card-title {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  /* ---- XP BAR ---- */
+  .xp-bar-wrap { margin: 8px 0 4px; }
+  .xp-bar-bg {
+    height: 8px; background: var(--bg3); border-radius: 4px;
+    border: 1px solid var(--border); overflow: hidden;
+  }
+  .xp-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold3), var(--gold), var(--gold2));
+    border-radius: 4px;
+    transition: width 0.8s cubic-bezier(.4,0,.2,1);
+    box-shadow: 0 0 8px rgba(201,168,76,0.5);
+  }
+  .xp-label {
+    display: flex; justify-content: space-between;
+    font-size: 11px; color: var(--text2); margin-top: 3px;
+  }
+
+  /* ---- SKILL ROWS ---- */
+  .skill-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .skill-row:last-child { border-bottom: none; }
+  .skill-icon { font-size: 22px; width: 30px; text-align: center; flex-shrink: 0; }
+  .skill-info { flex: 1; min-width: 0; }
+  .skill-name { font-size: 13px; font-weight: 600; color: var(--text); }
+  .skill-title { font-size: 11px; color: var(--gold); font-style: italic; }
+  .skill-pts { font-family: 'Cinzel', serif; font-size: 12px; color: var(--gold2); text-align: right; flex-shrink: 0; }
+
+  /* ---- LEVEL BADGE ---- */
+  .level-badge {
+    background: linear-gradient(135deg, var(--gold3), var(--gold));
+    color: var(--bg);
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+  }
+
+  /* ---- QUESTS ---- */
+  .quest-section-title {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    text-transform: uppercase;
+    padding: 14px 0 8px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .quest-section-title::after {
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(90deg, var(--border), transparent);
+  }
+
+  .quest-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px 14px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .quest-item:active { transform: scale(0.98); }
+  .quest-item.done {
+    background: rgba(39,174,96,0.08);
+    border-color: rgba(39,174,96,0.3);
+  }
+  .quest-checkbox {
+    width: 22px; height: 22px; border-radius: 4px;
+    border: 2px solid var(--gold3);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: 14px;
+    transition: all 0.2s;
+  }
+  .quest-item.done .quest-checkbox {
+    background: var(--green); border-color: var(--green);
+  }
+  .quest-info { flex: 1; min-width: 0; }
+  .quest-name { font-size: 14px; color: var(--text); line-height: 1.3; }
+  .quest-item.done .quest-name { color: var(--text2); text-decoration: line-through; }
+  .quest-xp {
+    font-family: 'Cinzel', serif; font-size: 11px;
+    color: var(--gold2); text-align: right; flex-shrink: 0;
+  }
+
+  /* ---- RADAR CHART ---- */
+  .radar-wrap { display: flex; justify-content: center; padding: 8px 0; }
+
+  /* ---- REWARDS ---- */
+  .reward-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 14px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 8px;
+  }
+  .reward-icon { font-size: 24px; width: 32px; text-align: center; }
+  .reward-info { flex: 1; }
+  .reward-name { font-size: 14px; font-weight: 600; }
+  .reward-cost { font-size: 12px; color: var(--gold); font-style: italic; }
+  .reward-btn {
+    font-family: 'Cinzel', serif; font-size: 11px;
+    padding: 6px 12px; border-radius: 4px; border: none; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .reward-btn.can-afford {
+    background: linear-gradient(135deg, var(--gold3), var(--gold));
+    color: var(--bg); font-weight: 700;
+  }
+  .reward-btn.cannot-afford {
+    background: var(--bg3); color: var(--text2); cursor: not-allowed;
+  }
+
+  /* ---- SUPER BONUS ---- */
+  .bonus-item {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 6px; padding: 12px 14px; margin-bottom: 8px;
+  }
+  .bonus-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .bonus-name { font-size: 13px; font-weight: 600; }
+  .bonus-progress-dots { display: flex; gap: 5px; }
+  .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    border: 1px solid var(--gold3);
+    transition: background 0.3s;
+  }
+  .dot.filled { background: var(--gold); border-color: var(--gold); box-shadow: 0 0 6px rgba(201,168,76,0.5); }
+
+  /* ---- SUPER QUETES ---- */
+  .super-quest {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px;
+    background: var(--bg2); border: 1px solid rgba(142,68,173,0.3);
+    border-radius: 6px; margin-bottom: 6px; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .super-quest.done { background: rgba(39,174,96,0.08); border-color: rgba(39,174,96,0.3); }
+  .sq-icon { font-size: 20px; }
+  .sq-name { flex: 1; font-size: 13px; color: var(--text); }
+  .super-quest.done .sq-name { color: var(--text2); text-decoration: line-through; }
+  .sq-check { font-size: 16px; }
+
+  /* ---- TOAST ---- */
+  .toast {
+    position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: linear-gradient(135deg, var(--gold3), var(--gold));
+    color: var(--bg); font-family: 'Cinzel', serif; font-size: 12px; font-weight: 700;
+    padding: 10px 20px; border-radius: 20px; letter-spacing: 1px;
+    opacity: 0; transition: all 0.3s; pointer-events: none; z-index: 200;
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ---- DATE ---- */
+  .date-display {
+    text-align: center; padding: 10px 0 4px;
+    font-family: 'Cinzel', serif; font-size: 11px;
+    color: var(--text2); letter-spacing: 2px;
+  }
+
+  /* ---- LEVEL UP FLASH ---- */
+  @keyframes levelUp {
+    0% { opacity: 0; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.1); }
+    100% { opacity: 0; transform: scale(1); }
+  }
+  .level-flash {
+    position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+    background: rgba(0,0,0,0.8); z-index: 300; pointer-events: none;
+    opacity: 0;
+  }
+  .level-flash.show { animation: levelUp 2s ease forwards; }
+  .level-flash-inner {
+    font-family: 'Cinzel', serif; color: var(--gold); text-align: center;
+    text-shadow: 0 0 40px rgba(201,168,76,0.8);
+  }
+  .level-flash-inner .big { font-size: 48px; font-weight: 900; display: block; }
+  .level-flash-inner .small { font-size: 16px; letter-spacing: 4px; }
+
+  /* ---- GLOBAL LEVEL DISPLAY ---- */
+  .global-level {
+    text-align: center; padding: 20px 0 8px;
+  }
+  .global-level .lv-num {
+    font-family: 'Cinzel', serif; font-size: 48px; font-weight: 900;
+    color: var(--gold); line-height: 1;
+    text-shadow: 0 0 30px rgba(201,168,76,0.4);
+  }
+  .global-level .lv-label {
+    font-family: 'Cinzel', serif; font-size: 10px;
+    letter-spacing: 4px; color: var(--text2); margin-top: 4px;
+  }
+  .global-level .lv-title {
+    font-size: 16px; font-style: italic; color: var(--gold2); margin-top: 4px;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-title">⚔️ VIE RPG</div>
+  <div class="header-xp">
+    <span id="headerXP">0</span>XP TOTAL
+  </div>
+</div>
+
+<!-- PAGES -->
+
+<!-- === PAGE DASHBOARD === -->
+<div class="page active" id="page-dashboard">
+  <div class="date-display" id="dateDisplay"></div>
+
+  <div class="global-level">
+    <div class="lv-num" id="globalLevel">0</div>
+    <div class="lv-label">NIVEAU GLOBAL</div>
+    <div class="lv-title" id="globalTitle">Novice</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">⚡ Expérience</div>
+    <div class="xp-bar-wrap">
+      <div class="xp-bar-bg">
+        <div class="xp-bar-fill" id="globalXpBar" style="width:0%"></div>
+      </div>
+      <div class="xp-label">
+        <span id="xpCurrent">0 XP</span>
+        <span id="xpNext">Prochain niveau : 100 XP</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📊 Skills</div>
+    <div id="skillRows"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📅 Aujourd'hui</div>
+    <div id="todaySummary" style="font-size:14px; color:var(--text2); text-align:center; padding:8px 0;">
+      Aucune quête accomplie aujourd'hui
+    </div>
+  </div>
+</div>
+
+<!-- === PAGE QUÊTES === -->
+<div class="page" id="page-quests">
+  <div id="questList"></div>
+</div>
+
+<!-- === PAGE BONUS === -->
+<div class="page" id="page-bonus">
+
+  <div class="card" style="margin-top:8px;">
+    <div class="card-title">🏆 Super Bonus de Régularité</div>
+    <p style="font-size:12px; color:var(--text2); margin-bottom:12px;">Coche chaque fois que tu réalises l'activité cette semaine. Le bonus XP est accordé automatiquement quand tu atteins l'objectif.</p>
+    <div id="bonusList"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🌟 Super Quêtes</div>
+    <p style="font-size:12px; color:var(--text2); margin-bottom:12px;">Objectifs non récurrents — coche quand accompli !</p>
+    <div id="superQuestList"></div>
+  </div>
+</div>
+
+<!-- === PAGE RÉCOMPENSES === -->
+<div class="page" id="page-rewards">
+  <div class="card" style="margin-top:8px;">
+    <div class="card-title">💰 XP Disponibles</div>
+    <div style="text-align:center; padding:12px 0;">
+      <span style="font-family:'Cinzel',serif; font-size:36px; color:var(--gold); font-weight:900;" id="spendableXP">0</span>
+      <span style="font-family:'Cinzel',serif; font-size:16px; color:var(--text2);"> XP</span>
+    </div>
+    <p style="font-size:12px; color:var(--text2); text-align:center;">XP gagnés − XP déjà dépensés</p>
+  </div>
+  <div class="card">
+    <div class="card-title">🎁 Récompenses</div>
+    <div id="rewardList"></div>
+  </div>
+  <div class="card">
+    <div class="card-title">📜 Historique des dépenses</div>
+    <div id="rewardHistory" style="font-size:13px; color:var(--text2);">Aucune récompense dépensée pour le moment.</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <button class="nav-btn active" onclick="showPage('dashboard',this)">
+    <span class="icon">🏰</span>Royaume
+  </button>
+  <button class="nav-btn" onclick="showPage('quests',this)">
+    <span class="icon">⚔️</span>Quêtes
+  </button>
+  <button class="nav-btn" onclick="showPage('bonus',this)">
+    <span class="icon">🌟</span>Bonus
+  </button>
+  <button class="nav-btn" onclick="showPage('rewards',this)">
+    <span class="icon">🎁</span>Récompenses
+  </button>
+</nav>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+<!-- Level Up Flash -->
+<div class="level-flash" id="levelFlash">
+  <div class="level-flash-inner">
+    <span class="big" id="flashLevel">2</span>
+    <span class="small">NIVEAU ATTEINT !</span>
+  </div>
+</div>
+
+<script>
+// ===================== DATA =====================
+const SKILLS = [
+  { id:'physical',  icon:'⚔️', name:'Physical Mastery',    color:'#e74c3c',
+    titles:['Recrue','Disciple du combat','Combattant','Guerrier entrainé','Vétéran','Spécialiste','Champion','Maître d\'armes','Grand maître','Légende vivante'] },
+  { id:'cognitive', icon:'🧠', name:'Cognitive Power',      color:'#3498db',
+    titles:['Curieux','Apprenant','Analyste','Penseur structuré','Stratège','Tacticien','Architecte mental','Maître stratège','Grand architecte','Esprit légendaire'] },
+  { id:'creative',  icon:'🎭', name:'Creative Expression',  color:'#9b59b6',
+    titles:['Initié créatif','Apprenti artiste','Artisan du son','Créateur','Artiste affirmé','Compositeur','Virtuose','Maître barde','Grand virtuose','Légende artistique'] },
+  { id:'career',    icon:'💼', name:'Career & Mastery',      color:'#f39c12',
+    titles:['Recrue','Exécutant','Opérateur','Professionnel fiable','Pilier','Expert métier','Référent','Maître de guilde','Grand stratège','Architecte de carrière'] },
+  { id:'base',      icon:'🏠', name:'Base Maintenance',      color:'#1abc9c',
+    titles:['Désorganisé','Routinier','Gestionnaire','Organisé','Gardien du foyer','Maître des routines','Architecte du quotidien','Seigneur de la base','Grand architecte de vie','Système parfait'] },
+  { id:'relations', icon:'🤝', name:'Relationships',         color:'#e67e22',
+    titles:['Solitaire','Compagnon','Ami fiable','Allié solide','Pilier relationnel','Connecteur','Diplomate','Maître des alliances','Chef de clan','Figure incontournable'] },
+];
+
+const THRESHOLDS = [0,20,50,100,175,275,400,560,760,1000];
+const GLOBAL_TITLES = ['Novice','Apprenti','Initié','Compagnon','Chevronné','Expert','Maître','Grand Maître','Légende','Dieu vivant'];
+
+const QUESTS = [
+  // Physical
+  { id:'meditation',  skill:'physical',  xp:3,  sp:1, name:'Méditation',                    cat:'⚔️ Physical Mastery' },
+  { id:'footing',     skill:'physical',  xp:5,  sp:1, name:'Footing',                        cat:'⚔️ Physical Mastery' },
+  { id:'muscu',       skill:'physical',  xp:5,  sp:2, name:'Séance musculation',              cat:'⚔️ Physical Mastery' },
+  { id:'kravmaga',    skill:'physical',  xp:10, sp:3, name:'Krav-maga',                       cat:'⚔️ Physical Mastery' },
+  { id:'velib',       skill:'physical',  xp:6,  sp:1, name:'Rentrer du travail en vélib',     cat:'⚔️ Physical Mastery' },
+  // Cognitive
+  { id:'winology',    skill:'cognitive', xp:3,  sp:1, name:'Winology',                        cat:'🧠 Cognitive Power' },
+  { id:'flashcards',  skill:'cognitive', xp:4,  sp:2, name:'Séance de révision de cartes',    cat:'🧠 Cognitive Power' },
+  { id:'livreses',    skill:'cognitive', xp:10, sp:1, name:'Lire un livre en espagnol',        cat:'🧠 Cognitive Power' },
+  { id:'livrean',     skill:'cognitive', xp:10, sp:1, name:'Lire un livre en anglais',         cat:'🧠 Cognitive Power' },
+  { id:'livredev',    skill:'cognitive', xp:15, sp:1, name:'Lire un livre de développement perso', cat:'🧠 Cognitive Power' },
+  { id:'livrefr',     skill:'cognitive', xp:5,  sp:1, name:'Lire un livre en français',        cat:'🧠 Cognitive Power' },
+  // Creative
+  { id:'musique',     skill:'creative',  xp:5,  sp:3, name:'Séance musique',                  cat:'🎭 Creative Expression' },
+  { id:'partitions',  skill:'creative',  xp:3,  sp:2, name:'Lecture de partitions sans instrument', cat:'🎭 Creative Expression' },
+  // Career
+  { id:'docsreview',  skill:'career',    xp:5,  sp:1, name:'Réviser des documents dans la journée', cat:'💼 Career & Mastery' },
+  { id:'docscomment', skill:'career',    xp:8,  sp:1, name:'Réviser des docs avec commentaires',    cat:'💼 Career & Mastery' },
+  { id:'mails7',      skill:'career',    xp:5,  sp:1, name:'Répondre à 7 mails dans la journée',    cat:'💼 Career & Mastery' },
+  { id:'km',          skill:'career',    xp:8,  sp:1, name:'Valider un KM',                         cat:'💼 Career & Mastery' },
+  // Base maintenance
+  { id:'poubelles',   skill:'base',      xp:2,  sp:1, name:'Sortir les poubelles',             cat:'🏠 Base Maintenance' },
+  { id:'cuisiner',    skill:'base',      xp:4,  sp:2, name:'Cuisiner',                          cat:'🏠 Base Maintenance' },
+  { id:'nouveauplat', skill:'base',      xp:7,  sp:3, name:'Cuisiner un nouveau plat',          cat:'🏠 Base Maintenance' },
+  { id:'courses',     skill:'base',      xp:5,  sp:1, name:'Faire les courses',                 cat:'🏠 Base Maintenance' },
+  { id:'plantes',     skill:'base',      xp:2,  sp:1, name:'Arroser les plantes',               cat:'🏠 Base Maintenance' },
+  // Relationships
+  { id:'dongsang',    skill:'relations', xp:5,  sp:1, name:'Don du sang',                      cat:'🤝 Relationships' },
+  { id:'brassband',   skill:'relations', xp:5,  sp:1, name:'Coordination Brass Band',           cat:'🤝 Relationships' },
+  { id:'concert',     skill:'relations', xp:20, sp:1, name:'Concert avec le brass band',        cat:'🤝 Relationships' },
+  { id:'chargsirene', skill:'relations', xp:8,  sp:1, name:'Chargement concert Sirène',         cat:'🤝 Relationships' },
+  { id:'chargbrass',  skill:'relations', xp:8,  sp:1, name:'Chargement concert Brass Band',     cat:'🤝 Relationships' },
+  { id:'couple',      skill:'relations', xp:5,  sp:1, name:'Activité en couple',                cat:'🤝 Relationships' },
+  { id:'meme',        skill:'relations', xp:10, sp:1, name:'Visiter mémé',                      cat:'🤝 Relationships' },
+  { id:'parents',     skill:'relations', xp:10, sp:1, name:'Visiter les parents',               cat:'🤝 Relationships' },
+  { id:'amis',        skill:'relations', xp:8,  sp:1, name:'Activité entre amis',               cat:'🤝 Relationships' },
+];
+
+const SUPER_QUESTS = [
+  { id:'sq1', icon:'🤝', name:'Envoyer les cartes de remerciement du mariage' },
+  { id:'sq2', icon:'🤝', name:'Organiser le voyage de noce' },
+  { id:'sq3', icon:'🤝', name:'Répartir les sous du mariage' },
+  { id:'sq4', icon:'⚔️', name:'Apprendre le Koudourou' },
+  { id:'sq5', icon:'💼', name:'Faire le recrutement des chefs' },
+];
+
+const SUPER_BONUSES = [
+  { id:'sb1', skill:'physical', icon:'⚔️', name:'3 séances de méditation/semaine',         questId:'meditation', target:3, xpReward:10 },
+  { id:'sb2', skill:'physical', icon:'⚔️', name:'3 séances de musculation/semaine',        questId:'muscu',      target:3, xpReward:10 },
+  { id:'sb3', skill:'creative', icon:'🎭', name:'2 séances de musique/semaine',             questId:'musique',    target:2, xpReward:8  },
+  { id:'sb4', skill:'cognitive',icon:'🧠', name:'Winology 10 jours d\'affilée',             questId:'winology',   target:10, xpReward:25 },
+];
+
+const REWARDS = [
+  { id:'kfc',    icon:'🍗', name:'KFC',            cost:6  },
+  { id:'frtang', icon:'🍜', name:'Frère Tang',      cost:4  },
+  { id:'chinois',icon:'🥢', name:'Restaurant chinois', cost:10 },
+  { id:'cinema', icon:'🎬', name:'Cinéma',           cost:6  },
+];
+
+// ===================== STATE =====================
+function todayKey() {
+  return new Date().toISOString().split('T')[0];
+}
+
+function loadState() {
+  try { return JSON.parse(localStorage.getItem('vierp_state') || 'null'); } catch(e) { return null; }
+}
+function saveState() {
+  localStorage.setItem('vierp_state', JSON.stringify(state));
+}
+
+const defaultState = {
+  // questsDone: { 'YYYY-MM-DD': ['questId', ...] }
+  questsDone: {},
+  // skill points
+  skillPts: { physical:0, cognitive:0, creative:0, career:0, base:0, relations:0 },
+  // bonusProgress: { 'sb_id': { week:'YYYY-WNN', count:0, claimed:false } }
+  bonusProgress: {},
+  // superQuestsDone: ['sq1', ...]
+  superQuestsDone: [],
+  // rewardHistory: [{id, name, cost, date}]
+  rewardHistory: [],
+  // totalXP
+  totalXP: 0,
+  // spentXP
+  spentXP: 0,
+};
+
+let state = loadState() || JSON.parse(JSON.stringify(defaultState));
+// ensure all keys
+if (!state.spentXP) state.spentXP = 0;
+if (!state.rewardHistory) state.rewardHistory = [];
+if (!state.superQuestsDone) state.superQuestsDone = [];
+
+// ===================== HELPERS =====================
+function getWeekKey() {
+  const d = new Date();
+  const jan1 = new Date(d.getFullYear(), 0, 1);
+  const wk = Math.ceil(((d - jan1) / 86400000 + jan1.getDay() + 1) / 7);
+  return `${d.getFullYear()}-W${wk}`;
+}
+
+function getLevel(pts) {
+  let lv = 0;
+  for (let i = THRESHOLDS.length - 1; i >= 0; i--) {
+    if (pts >= THRESHOLDS[i]) { lv = i; break; }
+  }
+  return lv;
+}
+
+function getLevelProgress(pts) {
+  const lv = getLevel(pts);
+  const curr = THRESHOLDS[lv];
+  const next = THRESHOLDS[lv + 1] || THRESHOLDS[lv] + 100;
+  return { lv, curr, next, pct: Math.min(100, ((pts - curr) / (next - curr)) * 100) };
+}
+
+function computeTotals() {
+  let totalXP = 0;
+  const skillPts = { physical:0, cognitive:0, creative:0, career:0, base:0, relations:0 };
+  // quests
+  Object.values(state.questsDone).forEach(arr => {
+    arr.forEach(qid => {
+      const q = QUESTS.find(x => x.id === qid);
+      if (q) { totalXP += q.xp; skillPts[q.skill] = (skillPts[q.skill]||0) + q.sp; }
+    });
+  });
+  // bonuses claimed
+  Object.entries(state.bonusProgress).forEach(([sid, bp]) => {
+    if (bp.claimed) {
+      const sb = SUPER_BONUSES.find(x => x.id === sid);
+      if (sb) totalXP += sb.xpReward;
+    }
+  });
+  // super quests (no fixed XP for now — they're milestones)
+  state.totalXP = totalXP;
+  state.skillPts = skillPts;
+  saveState();
+  return { totalXP, skillPts };
+}
+
+// ===================== RENDER =====================
+function showPage(name, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  btn.classList.add('active');
+  renderAll();
+}
+
+function renderAll() {
+  computeTotals();
+  renderHeader();
+  renderDashboard();
+  renderQuests();
+  renderBonus();
+  renderRewards();
+}
+
+function renderHeader() {
+  document.getElementById('headerXP').textContent = state.totalXP;
+}
+
+function renderDashboard() {
+  // date
+  const opts = { weekday:'long', year:'numeric', month:'long', day:'numeric' };
+  document.getElementById('dateDisplay').textContent = new Date().toLocaleDateString('fr-FR', opts).toUpperCase();
+
+  // global level
+  const { lv, curr, next, pct } = getLevelProgress(state.totalXP);
+  document.getElementById('globalLevel').textContent = lv;
+  document.getElementById('globalTitle').textContent = GLOBAL_TITLES[Math.min(lv, GLOBAL_TITLES.length-1)];
+  document.getElementById('globalXpBar').style.width = pct + '%';
+  document.getElementById('xpCurrent').textContent = state.totalXP + ' XP';
+  document.getElementById('xpNext').textContent = 'Prochain niveau : ' + next + ' XP';
+
+  // skill rows
+  const container = document.getElementById('skillRows');
+  container.innerHTML = '';
+  SKILLS.forEach(sk => {
+    const pts = state.skillPts[sk.id] || 0;
+    const lv = getLevel(pts);
+    const title = sk.titles[Math.min(lv, sk.titles.length-1)];
+    const { pct } = getLevelProgress(pts);
+    container.innerHTML += `
+      <div class="skill-row">
+        <div class="skill-icon">${sk.icon}</div>
+        <div class="skill-info">
+          <div class="skill-name">${sk.name}</div>
+          <div class="skill-title">${title}</div>
+          <div class="xp-bar-wrap" style="margin-top:4px;">
+            <div class="xp-bar-bg" style="height:5px;">
+              <div class="xp-bar-fill" style="width:${pct}%; background:linear-gradient(90deg,${sk.color}88,${sk.color});"></div>
+            </div>
+          </div>
+        </div>
+        <div class="skill-pts">
+          <span class="level-badge">Nv.${lv}</span>
+          <div style="margin-top:4px; font-size:11px; color:var(--text2);">${pts} pts</div>
+        </div>
+      </div>`;
+  });
+
+  // today summary
+  const today = todayKey();
+  const done = (state.questsDone[today] || []);
+  const todayXP = done.reduce((s, qid) => { const q = QUESTS.find(x=>x.id===qid); return s + (q?q.xp:0); }, 0);
+  const sumEl = document.getElementById('todaySummary');
+  if (done.length === 0) {
+    sumEl.textContent = 'Aucune quête accomplie aujourd\'hui';
+  } else {
+    sumEl.innerHTML = `<span style="font-family:'Cinzel',serif;font-size:24px;color:var(--gold);font-weight:900;">+${todayXP} XP</span><br>
+    <span style="color:var(--text2);">${done.length} quête${done.length>1?'s':''} accomplie${done.length>1?'s':''} aujourd'hui</span>`;
+  }
+}
+
+function renderQuests() {
+  const container = document.getElementById('questList');
+  container.innerHTML = '';
+  const today = todayKey();
+  const done = state.questsDone[today] || [];
+
+  // group by cat
+  const cats = {};
+  QUESTS.forEach(q => {
+    if (!cats[q.cat]) cats[q.cat] = [];
+    cats[q.cat].push(q);
+  });
+
+  Object.entries(cats).forEach(([cat, quests]) => {
+    const sec = document.createElement('div');
+    sec.innerHTML = `<div class="quest-section-title">${cat}</div>`;
+    quests.forEach(q => {
+      const isDone = done.includes(q.id);
+      const item = document.createElement('div');
+      item.className = 'quest-item' + (isDone ? ' done' : '');
+      item.innerHTML = `
+        <div class="quest-checkbox">${isDone ? '✓' : ''}</div>
+        <div class="quest-info">
+          <div class="quest-name">${q.name}</div>
+        </div>
+        <div class="quest-xp">+${q.xp} XP<br><span style="color:var(--text2);font-size:10px;">+${q.sp} sp</span></div>`;
+      item.addEventListener('click', () => toggleQuest(q.id));
+      sec.appendChild(item);
+    });
+    container.appendChild(sec);
+  });
+}
+
+function toggleQuest(qid) {
+  const today = todayKey();
+  if (!state.questsDone[today]) state.questsDone[today] = [];
+  const arr = state.questsDone[today];
+  const idx = arr.indexOf(qid);
+  const q = QUESTS.find(x => x.id === qid);
+
+  if (idx === -1) {
+    arr.push(qid);
+    showToast(`+${q.xp} XP — ${q.name}`);
+  } else {
+    arr.splice(idx, 1);
+  }
+  computeTotals();
+  saveState();
+  renderAll();
+}
+
+function renderBonus() {
+  // Super bonuses
+  const bonusContainer = document.getElementById('bonusList');
+  bonusContainer.innerHTML = '';
+  const week = getWeekKey();
+
+  SUPER_BONUSES.forEach(sb => {
+    if (!state.bonusProgress[sb.id]) state.bonusProgress[sb.id] = { week, count:0, claimed:false };
+    const bp = state.bonusProgress[sb.id];
+    // reset each week
+    if (bp.week !== week) { bp.week = week; bp.count = 0; bp.claimed = false; }
+
+    const item = document.createElement('div');
+    item.className = 'bonus-item';
+
+    const dots = Array.from({length: sb.target}, (_, i) =>
+      `<div class="dot ${i < bp.count ? 'filled' : ''}" ></div>`).join('');
+
+    item.innerHTML = `
+      <div class="bonus-header">
+        <div class="bonus-name">${sb.icon} ${sb.name}</div>
+        <div style="font-family:'Cinzel',serif;font-size:11px;color:var(--gold);">+${sb.xpReward} XP</div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+        <div class="bonus-progress-dots">${dots}</div>
+        <div style="font-size:12px;color:var(--text2);">${bp.count}/${sb.target} cette semaine${bp.claimed?' ✓ Réclamé!':''}</div>
+      </div>`;
+
+    // tap dots
+    item.querySelectorAll('.dot').forEach((dot, i) => {
+      dot.style.cursor = 'pointer';
+      dot.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (bp.claimed) return;
+        const newCount = (i < bp.count) ? i : i + 1;
+        bp.count = Math.min(newCount, sb.target);
+        if (bp.count >= sb.target && !bp.claimed) {
+          bp.claimed = true;
+          showToast(`🏆 Bonus! +${sb.xpReward} XP`);
+        }
+        saveState();
+        renderAll();
+      });
+    });
+
+    bonusContainer.appendChild(item);
+  });
+
+  // Super quests
+  const sqContainer = document.getElementById('superQuestList');
+  sqContainer.innerHTML = '';
+  SUPER_QUESTS.forEach(sq => {
+    const isDone = state.superQuestsDone.includes(sq.id);
+    const item = document.createElement('div');
+    item.className = 'super-quest' + (isDone ? ' done' : '');
+    item.innerHTML = `
+      <span class="sq-icon">${sq.icon}</span>
+      <span class="sq-name">${sq.name}</span>
+      <span class="sq-check">${isDone ? '✅' : '⬜'}</span>`;
+    item.addEventListener('click', () => {
+      const idx = state.superQuestsDone.indexOf(sq.id);
+      if (idx === -1) {
+        state.superQuestsDone.push(sq.id);
+        showToast('🌟 Super Quête accomplie !');
+      } else {
+        state.superQuestsDone.splice(idx, 1);
+      }
+      saveState();
+      renderAll();
+    });
+    sqContainer.appendChild(item);
+  });
+}
+
+function renderRewards() {
+  const spendable = state.totalXP - state.spentXP;
+  document.getElementById('spendableXP').textContent = spendable;
+
+  const container = document.getElementById('rewardList');
+  container.innerHTML = '';
+  REWARDS.forEach(r => {
+    const canAfford = spendable >= r.cost;
+    const item = document.createElement('div');
+    item.className = 'reward-item';
+    item.innerHTML = `
+      <div class="reward-icon">${r.icon}</div>
+      <div class="reward-info">
+        <div class="reward-name">${r.name}</div>
+        <div class="reward-cost">${r.cost} XP</div>
+      </div>
+      <button class="reward-btn ${canAfford ? 'can-afford' : 'cannot-afford'}" 
+        onclick="spendReward('${r.id}')" ${canAfford ? '' : 'disabled'}>
+        ${canAfford ? 'Dépenser' : 'Insuffisant'}
+      </button>`;
+    container.appendChild(item);
+  });
+
+  // history
+  const histEl = document.getElementById('rewardHistory');
+  if (state.rewardHistory.length === 0) {
+    histEl.textContent = 'Aucune récompense dépensée pour le moment.';
+  } else {
+    histEl.innerHTML = state.rewardHistory.slice().reverse().map(h =>
+      `<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);">
+        <span>${h.icon} ${h.name}</span>
+        <span style="color:var(--gold);">−${h.cost} XP <span style="color:var(--text2);font-size:11px;">${h.date}</span></span>
+      </div>`).join('');
+  }
+}
+
+function spendReward(rid) {
+  const r = REWARDS.find(x => x.id === rid);
+  const spendable = state.totalXP - state.spentXP;
+  if (spendable < r.cost) return;
+  state.spentXP += r.cost;
+  const today = new Date().toLocaleDateString('fr-FR');
+  state.rewardHistory.push({ id:r.id, icon:r.icon, name:r.name, cost:r.cost, date:today });
+  saveState();
+  showToast(`${r.icon} ${r.name} débloqué !`);
+  renderAll();
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ===================== INIT =====================
+renderAll();
+</script>
+</body>
+</html>
