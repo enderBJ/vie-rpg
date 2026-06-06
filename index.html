@@ -39,7 +39,6 @@
       radial-gradient(ellipse at 80% 80%, rgba(142,68,173,0.04) 0%, transparent 50%);
   }
 
-  /* ---- HEADER ---- */
   .header {
     background: linear-gradient(180deg, rgba(201,168,76,0.08) 0%, transparent 100%);
     border-bottom: 1px solid var(--border);
@@ -70,7 +69,6 @@
     display: block;
   }
 
-  /* ---- NAV ---- */
   .nav {
     display: flex;
     justify-content: space-around;
@@ -84,7 +82,7 @@
   .nav-btn {
     background: none; border: none; cursor: pointer;
     display: flex; flex-direction: column; align-items: center;
-    gap: 3px; padding: 4px 12px;
+    gap: 3px; padding: 4px 8px;
     color: var(--text2); font-size: 9px;
     font-family: 'Cinzel', serif; letter-spacing: 0.5px;
     transition: color 0.2s;
@@ -92,11 +90,9 @@
   .nav-btn.active { color: var(--gold); }
   .nav-btn .icon { font-size: 20px; }
 
-  /* ---- PAGES ---- */
   .page { display: none; padding: 16px 16px 100px; }
   .page.active { display: block; }
 
-  /* ---- CARDS ---- */
   .card {
     background: var(--bg2);
     border: 1px solid var(--border);
@@ -121,7 +117,6 @@
     margin-bottom: 12px;
   }
 
-  /* ---- XP BAR ---- */
   .xp-bar-wrap { margin: 8px 0 4px; }
   .xp-bar-bg {
     height: 8px; background: var(--bg3); border-radius: 4px;
@@ -139,7 +134,6 @@
     font-size: 11px; color: var(--text2); margin-top: 3px;
   }
 
-  /* ---- SKILL ROWS ---- */
   .skill-row {
     display: flex; align-items: center; gap: 10px;
     padding: 10px 0;
@@ -152,7 +146,6 @@
   .skill-title { font-size: 11px; color: var(--gold); font-style: italic; }
   .skill-pts { font-family: 'Cinzel', serif; font-size: 12px; color: var(--gold2); text-align: right; flex-shrink: 0; }
 
-  /* ---- LEVEL BADGE ---- */
   .level-badge {
     background: linear-gradient(135deg, var(--gold3), var(--gold));
     color: var(--bg);
@@ -164,7 +157,6 @@
     letter-spacing: 1px;
   }
 
-  /* ---- QUESTS ---- */
   .quest-section-title {
     font-family: 'Cinzel', serif;
     font-size: 10px;
@@ -214,10 +206,8 @@
     color: var(--gold2); text-align: right; flex-shrink: 0;
   }
 
-  /* ---- RADAR CHART ---- */
   .radar-wrap { display: flex; justify-content: center; padding: 8px 0; }
 
-  /* ---- REWARDS ---- */
   .reward-item {
     display: flex; align-items: center; gap: 12px;
     padding: 12px 14px;
@@ -243,7 +233,6 @@
     background: var(--bg3); color: var(--text2); cursor: not-allowed;
   }
 
-  /* ---- SUPER BONUS ---- */
   .bonus-item {
     background: var(--bg2); border: 1px solid var(--border);
     border-radius: 6px; padding: 12px 14px; margin-bottom: 8px;
@@ -258,7 +247,6 @@
   }
   .dot.filled { background: var(--gold); border-color: var(--gold); box-shadow: 0 0 6px rgba(201,168,76,0.5); }
 
-  /* ---- SUPER QUETES ---- */
   .super-quest {
     display: flex; align-items: center; gap: 10px;
     padding: 10px 14px;
@@ -272,7 +260,6 @@
   .super-quest.done .sq-name { color: var(--text2); text-decoration: line-through; }
   .sq-check { font-size: 16px; }
 
-  /* ---- TOAST ---- */
   .toast {
     position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(20px);
     background: linear-gradient(135deg, var(--gold3), var(--gold));
@@ -283,14 +270,12 @@
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-  /* ---- DATE ---- */
   .date-display {
     text-align: center; padding: 10px 0 4px;
     font-family: 'Cinzel', serif; font-size: 11px;
     color: var(--text2); letter-spacing: 2px;
   }
 
-  /* ---- LEVEL UP FLASH ---- */
   @keyframes levelUp {
     0% { opacity: 0; transform: scale(0.8); }
     50% { opacity: 1; transform: scale(1.1); }
@@ -309,7 +294,6 @@
   .level-flash-inner .big { font-size: 48px; font-weight: 900; display: block; }
   .level-flash-inner .small { font-size: 16px; letter-spacing: 4px; }
 
-  /* ---- GLOBAL LEVEL DISPLAY ---- */
   .global-level {
     text-align: center; padding: 20px 0 8px;
   }
@@ -325,11 +309,84 @@
   .global-level .lv-title {
     font-size: 16px; font-style: italic; color: var(--gold2); margin-top: 4px;
   }
+
+  /* ---- HISTORY ---- */
+  .history-day {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .history-day:last-child { border-bottom: none; }
+  .history-date { font-family: 'Cinzel', serif; font-size: 11px; color: var(--text2); }
+  .history-stats { display: flex; gap: 14px; align-items: center; }
+  .history-quests { font-size: 12px; color: var(--text); }
+  .history-xp { font-family: 'Cinzel', serif; font-size: 13px; color: var(--gold2); font-weight: 700; }
+
+  /* ---- HERO CHARACTER ---- */
+  .hero-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 0 4px;
+  }
+  .hero-svg-wrap {
+    position: relative;
+    width: 120px;
+    height: 120px;
+  }
+  @keyframes heroFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
+  }
+  @keyframes heroGlow {
+    0%, 100% { filter: drop-shadow(0 0 8px rgba(201,168,76,0.4)); }
+    50% { filter: drop-shadow(0 0 20px rgba(201,168,76,0.8)); }
+  }
+  .hero-svg-wrap svg {
+    animation: heroFloat 3s ease-in-out infinite, heroGlow 3s ease-in-out infinite;
+  }
+  .hero-name {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    color: var(--gold2);
+    margin-top: 8px;
+    letter-spacing: 2px;
+  }
+  .hero-class {
+    font-size: 12px;
+    font-style: italic;
+    color: var(--text2);
+    margin-top: 2px;
+  }
+
+  /* ---- STATS PAGE ---- */
+  #page-stats .card-title { margin-bottom: 8px; }
+
+  .chart-container {
+    position: relative;
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .xp-chart-wrap {
+    width: 100%;
+    height: 160px;
+    position: relative;
+  }
+
+  .no-data {
+    text-align: center;
+    color: var(--text2);
+    font-style: italic;
+    font-size: 13px;
+    padding: 20px 0;
+  }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="header">
   <div class="header-title">⚔️ Life Quest</div>
   <div class="header-xp">
@@ -337,11 +394,18 @@
   </div>
 </div>
 
-<!-- PAGES -->
-
 <!-- === PAGE DASHBOARD === -->
 <div class="page active" id="page-dashboard">
   <div class="date-display" id="dateDisplay"></div>
+
+  <!-- HERO CHARACTER -->
+  <div class="card">
+    <div class="hero-wrap">
+      <div class="hero-svg-wrap" id="heroSvgWrap"></div>
+      <div class="hero-name" id="heroName">Héros</div>
+      <div class="hero-class" id="heroClass">Novice</div>
+    </div>
+  </div>
 
   <div class="global-level">
     <div class="lv-num" id="globalLevel">0</div>
@@ -373,6 +437,14 @@
       Aucune quête accomplie aujourd'hui
     </div>
   </div>
+
+  <!-- HISTORIQUE JOURNALIER -->
+  <div class="card">
+    <div class="card-title">📜 Historique journalier</div>
+    <div id="dailyHistory">
+      <div class="no-data">Aucune donnée pour le moment</div>
+    </div>
+  </div>
 </div>
 
 <!-- === PAGE QUÊTES === -->
@@ -382,17 +454,31 @@
 
 <!-- === PAGE BONUS === -->
 <div class="page" id="page-bonus">
-
   <div class="card" style="margin-top:8px;">
     <div class="card-title">🏆 Super Bonus de Régularité</div>
     <p style="font-size:12px; color:var(--text2); margin-bottom:12px;">Coche chaque fois que tu réalises l'activité cette semaine. Le bonus XP est accordé automatiquement quand tu atteins l'objectif.</p>
     <div id="bonusList"></div>
   </div>
-
   <div class="card">
     <div class="card-title">🌟 Super Quêtes</div>
     <p style="font-size:12px; color:var(--text2); margin-bottom:12px;">Objectifs non récurrents — coche quand accompli !</p>
     <div id="superQuestList"></div>
+  </div>
+</div>
+
+<!-- === PAGE STATS === -->
+<div class="page" id="page-stats">
+  <div class="card" style="margin-top:8px;">
+    <div class="card-title">📈 XP Cumulé par Jour</div>
+    <div class="xp-chart-wrap">
+      <canvas id="xpChart" width="340" height="150"></canvas>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">🕸️ Radar des Skills</div>
+    <div class="radar-wrap">
+      <canvas id="radarChart" width="300" height="280"></canvas>
+    </div>
   </div>
 </div>
 
@@ -427,14 +513,15 @@
   <button class="nav-btn" onclick="showPage('bonus',this)">
     <span class="icon">🌟</span>Bonus
   </button>
+  <button class="nav-btn" onclick="showPage('stats',this)">
+    <span class="icon">📊</span>Stats
+  </button>
   <button class="nav-btn" onclick="showPage('rewards',this)">
-    <span class="icon">🎁</span>Récompenses
+    <span class="icon">🎁</span>Récomp.
   </button>
 </nav>
 
-<!-- Toast -->
 <div class="toast" id="toast"></div>
-<!-- Level Up Flash -->
 <div class="level-flash" id="levelFlash">
   <div class="level-flash-inner">
     <span class="big" id="flashLevel">2</span>
@@ -463,37 +550,31 @@ const THRESHOLDS = [0,20,50,100,175,275,400,560,760,1000];
 const GLOBAL_TITLES = ['Novice','Apprenti','Initié','Compagnon','Chevronné','Expert','Maître','Grand Maître','Légende','Dieu vivant'];
 
 const QUESTS = [
-  // Physical
   { id:'meditation',  skill:'physical',  xp:3,  sp:1, name:'Méditation',                    cat:'⚔️ Physical Mastery' },
   { id:'footing',     skill:'physical',  xp:5,  sp:1, name:'Footing',                        cat:'⚔️ Physical Mastery' },
   { id:'muscu',       skill:'physical',  xp:5,  sp:2, name:'Séance musculation',              cat:'⚔️ Physical Mastery' },
   { id:'kravmaga',    skill:'physical',  xp:10, sp:3, name:'Krav-maga',                       cat:'⚔️ Physical Mastery' },
   { id:'velib',       skill:'physical',  xp:6,  sp:1, name:'Rentrer du travail en vélib',     cat:'⚔️ Physical Mastery' },
-  // Cognitive
   { id:'winology',    skill:'cognitive', xp:3,  sp:1, name:'Winology',                        cat:'🧠 Cognitive Power' },
   { id:'flashcards',  skill:'cognitive', xp:4,  sp:2, name:'Séance de révision de cartes',    cat:'🧠 Cognitive Power' },
-  { id:'Peak',       skill:'cognitive', xp:2,  sp:2, name:'Séance de révision Peak',          cat:'🧠 Cognitive Power' },
+  { id:'Peak',        skill:'cognitive', xp:2,  sp:2, name:'Séance de révision Peak',         cat:'🧠 Cognitive Power' },
   { id:'livreses',    skill:'cognitive', xp:10, sp:1, name:'Session IA livre espagnol',        cat:'🧠 Cognitive Power' },
   { id:'livrean',     skill:'cognitive', xp:10, sp:1, name:'Session IA livre anglais',         cat:'🧠 Cognitive Power' },
   { id:'livredev',    skill:'cognitive', xp:15, sp:1, name:'Session IA livre développement perso', cat:'🧠 Cognitive Power' },
   { id:'livrefr',     skill:'cognitive', xp:5,  sp:1, name:'Session IA livre français',        cat:'🧠 Cognitive Power' },
-  // Creative
   { id:'musique',     skill:'creative',  xp:5,  sp:3, name:'Séance musique',                  cat:'🎭 Creative Expression' },
   { id:'partitions',  skill:'creative',  xp:3,  sp:2, name:'Lecture de partitions sans instrument', cat:'🎭 Creative Expression' },
-  // Career
-  { id:'docsreview',  skill:'career',    xp:5,  sp:1, name:'4 docs Aconex + 1 com par doc', cat:'💼 Career & Mastery' },
-  { id:'mails7',      skill:'career',    xp:5,  sp:1, name:'Répondre à 6 mails dans la journée',    cat:'💼 Career & Mastery' },
-  { id:'km',          skill:'career',    xp:8,  sp:1, name:'Valider un KM',                         cat:'💼 Career & Mastery' },
-  // Base maintenance
+  { id:'docsreview',  skill:'career',    xp:5,  sp:1, name:'4 docs Aconex + 1 com par doc',   cat:'💼 Career & Mastery' },
+  { id:'mails7',      skill:'career',    xp:5,  sp:1, name:'Répondre à 6 mails dans la journée', cat:'💼 Career & Mastery' },
+  { id:'km',          skill:'career',    xp:8,  sp:1, name:'Valider un KM',                   cat:'💼 Career & Mastery' },
   { id:'poubelles',   skill:'base',      xp:2,  sp:1, name:'Sortir les poubelles',             cat:'🏠 Base Maintenance' },
   { id:'cuisiner',    skill:'base',      xp:4,  sp:2, name:'Cuisiner',                          cat:'🏠 Base Maintenance' },
   { id:'nouveauplat', skill:'base',      xp:7,  sp:3, name:'Cuisiner un nouveau plat',          cat:'🏠 Base Maintenance' },
   { id:'courses',     skill:'base',      xp:5,  sp:1, name:'Faire les courses',                 cat:'🏠 Base Maintenance' },
-  { id:'repassage',   skill:'base',      xp:3,  sp:1, name:'Faire le repassage',                 cat:'🏠 Base Maintenance' },
-  { id:'Machineàlaver',   skill:'base',  xp:3,  sp:1, name:'Faire une machine à laver',     cat:'🏠 Base Maintenance' },
+  { id:'repassage',   skill:'base',      xp:3,  sp:1, name:'Faire le repassage',                cat:'🏠 Base Maintenance' },
+  { id:'Machineàlaver', skill:'base',    xp:3,  sp:1, name:'Faire une machine à laver',         cat:'🏠 Base Maintenance' },
   { id:'plantes',     skill:'base',      xp:2,  sp:1, name:'Arroser les plantes',               cat:'🏠 Base Maintenance' },
-  // Relationships
-  { id:'dongsang',    skill:'relations', xp:5,  sp:1, name:'Don du sang',                      cat:'🤝 Relationships' },
+  { id:'dongsang',    skill:'relations', xp:5,  sp:1, name:'Don du sang',                       cat:'🤝 Relationships' },
   { id:'brassband',   skill:'relations', xp:5,  sp:1, name:'Coordination Brass Band',           cat:'🤝 Relationships' },
   { id:'concert',     skill:'relations', xp:20, sp:1, name:'Concert avec le brass band',        cat:'🤝 Relationships' },
   { id:'chargsirene', skill:'relations', xp:8,  sp:1, name:'Chargement concert Sirène',         cat:'🤝 Relationships' },
@@ -513,18 +594,173 @@ const SUPER_QUESTS = [
 ];
 
 const SUPER_BONUSES = [
-  { id:'sb1', skill:'physical', icon:'⚔️', name:'3 séances de méditation/semaine',         questId:'meditation', target:3, xpReward:10 },
-  { id:'sb2', skill:'physical', icon:'⚔️', name:'3 séances de musculation/semaine',        questId:'muscu',      target:3, xpReward:10 },
-  { id:'sb3', skill:'creative', icon:'🎭', name:'2 séances de musique/semaine',             questId:'musique',    target:2, xpReward:8  },
-  { id:'sb4', skill:'cognitive',icon:'🧠', name:'Winology 10 jours d\'affilée',             questId:'winology',   target:10, xpReward:25 },
+  { id:'sb1', skill:'physical', icon:'⚔️', name:'3 séances de méditation/semaine',      questId:'meditation', target:3,  xpReward:10 },
+  { id:'sb2', skill:'physical', icon:'⚔️', name:'3 séances de musculation/semaine',     questId:'muscu',      target:3,  xpReward:10 },
+  { id:'sb3', skill:'creative', icon:'🎭', name:'2 séances de musique/semaine',          questId:'musique',    target:2,  xpReward:8  },
+  { id:'sb4', skill:'cognitive',icon:'🧠', name:"Winology 10 jours d'affilée",           questId:'winology',   target:10, xpReward:25 },
 ];
 
 const REWARDS = [
-  { id:'kfc',    icon:'🍗', name:'KFC',            cost:6  },
-  { id:'frtang', icon:'🍜', name:'Frère Tang',      cost:4  },
+  { id:'kfc',    icon:'🍗', name:'KFC',               cost:6  },
+  { id:'frtang', icon:'🍜', name:'Frère Tang',         cost:4  },
   { id:'chinois',icon:'🥢', name:'Restaurant chinois', cost:10 },
-  { id:'cinema', icon:'🎬', name:'Cinéma',           cost:6  },
+  { id:'cinema', icon:'🎬', name:'Cinéma',             cost:6  },
 ];
+
+// ===================== HERO STAGES =====================
+// 10 stages matching levels 0-9
+function getHeroSVG(level, skillPts) {
+  const lv = Math.min(level, 9);
+  
+  // Color progression: gray peasant → bronze warrior → silver knight → gold champion → legendary
+  const stages = [
+    // Level 0 - Novice (peasant)
+    { bodyColor:'#8B7355', armorColor:'#6B5B3E', weaponType:'stick', aura:'none', crown:false, wings:false },
+    // Level 1 - Apprenti
+    { bodyColor:'#A0956A', armorColor:'#7A6545', weaponType:'dagger', aura:'none', crown:false, wings:false },
+    // Level 2 - Initié
+    { bodyColor:'#B8A878', armorColor:'#9B7B4A', weaponType:'sword', aura:'faint', crown:false, wings:false },
+    // Level 3 - Compagnon
+    { bodyColor:'#C8B890', armorColor:'#B08840', weaponType:'sword', aura:'bronze', crown:false, wings:false },
+    // Level 4 - Chevronné
+    { bodyColor:'#D4C49C', armorColor:'#C0963A', weaponType:'longsword', aura:'bronze', crown:false, wings:false },
+    // Level 5 - Expert
+    { bodyColor:'#C8C8D0', armorColor:'#909090', weaponType:'longsword', aura:'silver', crown:false, wings:false },
+    // Level 6 - Maître
+    { bodyColor:'#D8D8E0', armorColor:'#A8A8B0', weaponType:'greatsword', aura:'silver', crown:true, wings:false },
+    // Level 7 - Grand Maître
+    { bodyColor:'#E8D878', armorColor:'#C9A84C', weaponType:'greatsword', aura:'gold', crown:true, wings:false },
+    // Level 8 - Légende
+    { bodyColor:'#F0E890', armorColor:'#E0C840', weaponType:'greatsword', aura:'gold', crown:true, wings:true },
+    // Level 9 - Dieu vivant
+    { bodyColor:'#FFFFFF', armorColor:'#F0D080', weaponType:'divine', aura:'divine', crown:true, wings:true },
+  ];
+
+  const s = stages[lv];
+  
+  // Aura glow
+  const auraColors = {
+    none: 'transparent',
+    faint: 'rgba(180,150,80,0.15)',
+    bronze: 'rgba(180,130,60,0.3)',
+    silver: 'rgba(180,190,200,0.35)',
+    gold: 'rgba(201,168,76,0.45)',
+    divine: 'rgba(255,255,200,0.6)',
+  };
+  const auraColor = auraColors[s.aura] || 'transparent';
+  const auraR = s.aura !== 'none' ? '48' : '0';
+
+  // Weapon SVG paths
+  const weapons = {
+    stick: `<line x1="82" y1="52" x2="96" y2="78" stroke="#8B6914" stroke-width="3" stroke-linecap="round"/>`,
+    dagger: `<line x1="82" y1="48" x2="96" y2="72" stroke="#999" stroke-width="3" stroke-linecap="round"/>
+             <line x1="86" y1="58" x2="79" y2="62" stroke="#999" stroke-width="2"/>`,
+    sword: `<line x1="81" y1="44" x2="97" y2="76" stroke="#BBB" stroke-width="3" stroke-linecap="round"/>
+            <line x1="84" y1="58" x2="76" y2="64" stroke="#AAA" stroke-width="2"/>
+            <rect x="79" y="72" width="6" height="8" rx="1" fill="#888"/>`,
+    longsword: `<line x1="80" y1="36" x2="98" y2="76" stroke="#CCC" stroke-width="3.5" stroke-linecap="round"/>
+                <line x1="83" y1="54" x2="74" y2="60" stroke="#BBB" stroke-width="2.5"/>
+                <rect x="78" y="72" width="7" height="8" rx="1" fill="#999"/>`,
+    greatsword: `<line x1="79" y1="30" x2="100" y2="78" stroke="${s.armorColor}" stroke-width="4" stroke-linecap="round"/>
+                 <line x1="83" y1="52" x2="72" y2="60" stroke="${s.armorColor}" stroke-width="3"/>
+                 <rect x="77" y="74" width="8" height="9" rx="1" fill="${s.bodyColor}"/>
+                 <circle cx="86" cy="35" r="3" fill="${s.armorColor}" opacity="0.8"/>`,
+    divine: `<line x1="79" y1="28" x2="101" y2="78" stroke="#fff" stroke-width="4.5" stroke-linecap="round" opacity="0.9"/>
+             <line x1="83" y1="50" x2="70" y2="58" stroke="#fff" stroke-width="3" opacity="0.9"/>
+             <rect x="77" y="74" width="9" height="9" rx="2" fill="#F0D080"/>
+             <circle cx="86" cy="32" r="5" fill="white" opacity="0.9"/>
+             <circle cx="86" cy="32" r="3" fill="#F0D080"/>`,
+  };
+
+  const weaponSVG = weapons[s.weaponType] || weapons.sword;
+
+  // Crown
+  const crownSVG = s.crown ? `
+    <polygon points="60,34 64,26 68,32 72,24 76,34" fill="${s.armorColor}" stroke="${s.bodyColor}" stroke-width="0.5"/>
+    <circle cx="64" cy="26" r="2" fill="#E8D060"/>
+    <circle cx="72" cy="24" r="2" fill="#E8D060"/>
+  ` : '';
+
+  // Wings
+  const wingsSVG = s.wings ? `
+    <ellipse cx="44" cy="64" rx="18" ry="10" fill="${s.armorColor}" opacity="0.7" transform="rotate(-20,44,64)"/>
+    <ellipse cx="44" cy="58" rx="13" ry="7" fill="white" opacity="0.4" transform="rotate(-20,44,58)"/>
+    <ellipse cx="96" cy="64" rx="18" ry="10" fill="${s.armorColor}" opacity="0.7" transform="rotate(20,96,64)"/>
+    <ellipse cx="96" cy="58" rx="13" ry="7" fill="white" opacity="0.4" transform="rotate(20,96,58)"/>
+  ` : '';
+
+  // Divine aura sparkles
+  const sparkles = s.aura === 'divine' ? `
+    <circle cx="52" cy="42" r="2" fill="white" opacity="0.8"><animate attributeName="opacity" values="0.8;0.2;0.8" dur="1.5s" repeatCount="indefinite"/></circle>
+    <circle cx="88" cy="38" r="1.5" fill="#F0D080" opacity="0.9"><animate attributeName="opacity" values="0.9;0.3;0.9" dur="2s" repeatCount="indefinite"/></circle>
+    <circle cx="46" cy="72" r="1.5" fill="white" opacity="0.7"><animate attributeName="opacity" values="0.7;0.1;0.7" dur="1.8s" repeatCount="indefinite"/></circle>
+  ` : '';
+
+  return `<svg viewBox="0 0 140 120" xmlns="http://www.w3.org/2000/svg" width="120" height="120">
+    <!-- Aura -->
+    <radialGradient id="auraGrad" cx="50%" cy="60%" r="50%">
+      <stop offset="0%" stop-color="${auraColor}"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+    <ellipse cx="70" cy="80" rx="${auraR}" ry="${auraR}" fill="url(#auraGrad)"/>
+
+    ${wingsSVG}
+
+    <!-- Shadow -->
+    <ellipse cx="70" cy="110" rx="22" ry="5" fill="rgba(0,0,0,0.3)"/>
+
+    <!-- Legs -->
+    <rect x="57" y="82" width="10" height="22" rx="4" fill="${s.bodyColor}"/>
+    <rect x="73" y="82" width="10" height="22" rx="4" fill="${s.bodyColor}"/>
+    <!-- Boots -->
+    <rect x="55" y="98" width="13" height="8" rx="3" fill="${s.armorColor}"/>
+    <rect x="72" y="98" width="13" height="8" rx="3" fill="${s.armorColor}"/>
+
+    <!-- Body / Armor -->
+    <rect x="52" y="54" width="36" height="32" rx="6" fill="${s.armorColor}"/>
+    <!-- Chest detail -->
+    <rect x="60" y="60" width="20" height="18" rx="3" fill="${s.bodyColor}" opacity="0.4"/>
+    <line x1="70" y1="60" x2="70" y2="78" stroke="${s.armorColor}" stroke-width="1.5" opacity="0.5"/>
+
+    <!-- Arms -->
+    <rect x="38" y="56" width="14" height="8" rx="4" fill="${s.armorColor}"/>
+    <rect x="88" y="56" width="14" height="8" rx="4" fill="${s.armorColor}"/>
+    <!-- Hands -->
+    <ellipse cx="42" cy="68" rx="6" ry="5" fill="${s.bodyColor}"/>
+    <ellipse cx="98" cy="68" rx="6" ry="5" fill="${s.bodyColor}"/>
+
+    <!-- Neck -->
+    <rect x="64" y="46" width="12" height="10" rx="3" fill="${s.bodyColor}"/>
+
+    <!-- Head -->
+    <ellipse cx="70" cy="38" rx="16" ry="14" fill="${s.bodyColor}"/>
+
+    <!-- Helmet / Hair -->
+    <ellipse cx="70" cy="28" rx="16" ry="10" fill="${s.armorColor}"/>
+    ${crownSVG}
+
+    <!-- Face -->
+    <circle cx="64" cy="38" r="2.5" fill="#1a1a2e"/>
+    <circle cx="76" cy="38" r="2.5" fill="#1a1a2e"/>
+    <!-- Smile (more expressive at higher levels) -->
+    ${lv >= 5
+      ? `<path d="M 63 44 Q 70 49 77 44" stroke="#1a1a2e" stroke-width="1.5" fill="none" stroke-linecap="round"/>`
+      : `<line x1="64" y1="45" x2="76" y2="45" stroke="#1a1a2e" stroke-width="1.5" stroke-linecap="round"/>`
+    }
+
+    <!-- Shield (level 3+) -->
+    ${lv >= 3 ? `
+    <polygon points="46,60 38,68 40,80 46,84 52,80 54,68" fill="${s.armorColor}" stroke="${s.bodyColor}" stroke-width="1"/>
+    <line x1="46" y1="62" x2="46" y2="82" stroke="${s.bodyColor}" stroke-width="1" opacity="0.5"/>
+    <line x1="40" y1="72" x2="52" y2="72" stroke="${s.bodyColor}" stroke-width="1" opacity="0.5"/>
+    ` : ''}
+
+    <!-- Weapon -->
+    ${weaponSVG}
+
+    ${sparkles}
+  </svg>`;
+}
 
 // ===================== STATE =====================
 function todayKey() {
@@ -539,24 +775,16 @@ function saveState() {
 }
 
 const defaultState = {
-  // questsDone: { 'YYYY-MM-DD': ['questId', ...] }
   questsDone: {},
-  // skill points
   skillPts: { physical:0, cognitive:0, creative:0, career:0, base:0, relations:0 },
-  // bonusProgress: { 'sb_id': { week:'YYYY-WNN', count:0, claimed:false } }
   bonusProgress: {},
-  // superQuestsDone: ['sq1', ...]
   superQuestsDone: [],
-  // rewardHistory: [{id, name, cost, date}]
   rewardHistory: [],
-  // totalXP
   totalXP: 0,
-  // spentXP
   spentXP: 0,
 };
 
 let state = loadState() || JSON.parse(JSON.stringify(defaultState));
-// ensure all keys
 if (!state.spentXP) state.spentXP = 0;
 if (!state.rewardHistory) state.rewardHistory = [];
 if (!state.superQuestsDone) state.superQuestsDone = [];
@@ -587,25 +815,47 @@ function getLevelProgress(pts) {
 function computeTotals() {
   let totalXP = 0;
   const skillPts = { physical:0, cognitive:0, creative:0, career:0, base:0, relations:0 };
-  // quests
   Object.values(state.questsDone).forEach(arr => {
     arr.forEach(qid => {
       const q = QUESTS.find(x => x.id === qid);
       if (q) { totalXP += q.xp; skillPts[q.skill] = (skillPts[q.skill]||0) + q.sp; }
     });
   });
-  // bonuses claimed
   Object.entries(state.bonusProgress).forEach(([sid, bp]) => {
     if (bp.claimed) {
       const sb = SUPER_BONUSES.find(x => x.id === sid);
       if (sb) totalXP += sb.xpReward;
     }
   });
-  // super quests (no fixed XP for now — they're milestones)
   state.totalXP = totalXP;
   state.skillPts = skillPts;
   saveState();
   return { totalXP, skillPts };
+}
+
+// Compute XP per day from questsDone
+function getDailyXP() {
+  const days = {};
+  Object.entries(state.questsDone).forEach(([date, arr]) => {
+    let xp = 0;
+    arr.forEach(qid => {
+      const q = QUESTS.find(x => x.id === qid);
+      if (q) xp += q.xp;
+    });
+    days[date] = { xp, count: arr.length };
+  });
+  return days;
+}
+
+// Get sorted dates and cumulative XP
+function getCumulativeXP() {
+  const daily = getDailyXP();
+  const sorted = Object.keys(daily).sort();
+  let cumul = 0;
+  return sorted.map(date => {
+    cumul += daily[date].xp;
+    return { date, daily: daily[date].xp, cumul };
+  });
 }
 
 // ===================== RENDER =====================
@@ -623,6 +873,7 @@ function renderAll() {
   renderDashboard();
   renderQuests();
   renderBonus();
+  renderStats();
   renderRewards();
 }
 
@@ -631,11 +882,9 @@ function renderHeader() {
 }
 
 function renderDashboard() {
-  // date
   const opts = { weekday:'long', year:'numeric', month:'long', day:'numeric' };
   document.getElementById('dateDisplay').textContent = new Date().toLocaleDateString('fr-FR', opts).toUpperCase();
 
-  // global level
   const { lv, curr, next, pct } = getLevelProgress(state.totalXP);
   document.getElementById('globalLevel').textContent = lv;
   document.getElementById('globalTitle').textContent = GLOBAL_TITLES[Math.min(lv, GLOBAL_TITLES.length-1)];
@@ -643,7 +892,13 @@ function renderDashboard() {
   document.getElementById('xpCurrent').textContent = state.totalXP + ' XP';
   document.getElementById('xpNext').textContent = 'Prochain niveau : ' + next + ' XP';
 
-  // skill rows
+  // Hero character
+  document.getElementById('heroSvgWrap').innerHTML = getHeroSVG(lv, state.skillPts);
+  const heroNames = ['L\'Étranger','Le Voyageur','L\'Apprenti','Le Compagnon','L\'Initié','L\'Expert','Le Maître','Le Grand Maître','La Légende','Le Dieu vivant'];
+  document.getElementById('heroName').textContent = heroNames[Math.min(lv, 9)];
+  document.getElementById('heroClass').textContent = GLOBAL_TITLES[Math.min(lv, GLOBAL_TITLES.length-1)];
+
+  // Skill rows
   const container = document.getElementById('skillRows');
   container.innerHTML = '';
   SKILLS.forEach(sk => {
@@ -670,7 +925,7 @@ function renderDashboard() {
       </div>`;
   });
 
-  // today summary
+  // Today summary
   const today = todayKey();
   const done = (state.questsDone[today] || []);
   const todayXP = done.reduce((s, qid) => { const q = QUESTS.find(x=>x.id===qid); return s + (q?q.xp:0); }, 0);
@@ -681,6 +936,38 @@ function renderDashboard() {
     sumEl.innerHTML = `<span style="font-family:'Cinzel',serif;font-size:24px;color:var(--gold);font-weight:900;">+${todayXP} XP</span><br>
     <span style="color:var(--text2);">${done.length} quête${done.length>1?'s':''} accomplie${done.length>1?'s':''} aujourd'hui</span>`;
   }
+
+  // Daily history
+  renderDailyHistory();
+}
+
+function renderDailyHistory() {
+  const histEl = document.getElementById('dailyHistory');
+  const daily = getDailyXP();
+  const sorted = Object.keys(daily).sort().reverse(); // most recent first
+
+  if (sorted.length === 0) {
+    histEl.innerHTML = '<div class="no-data">Aucune donnée pour le moment</div>';
+    return;
+  }
+
+  histEl.innerHTML = sorted.slice(0, 14).map(date => {
+    const d = daily[date];
+    const label = formatDateFR(date);
+    const isToday = date === todayKey();
+    return `<div class="history-day">
+      <div>
+        <div class="history-date">${label}${isToday ? ' <span style="color:var(--gold);font-size:10px;">● AUJOURD\'HUI</span>' : ''}</div>
+        <div class="history-quests" style="font-size:12px; color:var(--text2); margin-top:2px;">${d.count} quête${d.count>1?'s':''}</div>
+      </div>
+      <div class="history-xp">+${d.xp} XP</div>
+    </div>`;
+  }).join('');
+}
+
+function formatDateFR(dateStr) {
+  const d = new Date(dateStr + 'T12:00:00');
+  return d.toLocaleDateString('fr-FR', { weekday:'short', day:'numeric', month:'short' }).toUpperCase();
 }
 
 function renderQuests() {
@@ -689,7 +976,6 @@ function renderQuests() {
   const today = todayKey();
   const done = state.questsDone[today] || [];
 
-  // group by cat
   const cats = {};
   QUESTS.forEach(q => {
     if (!cats[q.cat]) cats[q.cat] = [];
@@ -735,7 +1021,6 @@ function toggleQuest(qid) {
 }
 
 function renderBonus() {
-  // Super bonuses
   const bonusContainer = document.getElementById('bonusList');
   bonusContainer.innerHTML = '';
   const week = getWeekKey();
@@ -743,14 +1028,12 @@ function renderBonus() {
   SUPER_BONUSES.forEach(sb => {
     if (!state.bonusProgress[sb.id]) state.bonusProgress[sb.id] = { week, count:0, claimed:false };
     const bp = state.bonusProgress[sb.id];
-    // reset each week
     if (bp.week !== week) { bp.week = week; bp.count = 0; bp.claimed = false; }
 
     const item = document.createElement('div');
     item.className = 'bonus-item';
-
     const dots = Array.from({length: sb.target}, (_, i) =>
-      `<div class="dot ${i < bp.count ? 'filled' : ''}" ></div>`).join('');
+      `<div class="dot ${i < bp.count ? 'filled' : ''}"></div>`).join('');
 
     item.innerHTML = `
       <div class="bonus-header">
@@ -762,7 +1045,6 @@ function renderBonus() {
         <div style="font-size:12px;color:var(--text2);">${bp.count}/${sb.target} cette semaine${bp.claimed?' ✓ Réclamé!':''}</div>
       </div>`;
 
-    // tap dots
     item.querySelectorAll('.dot').forEach((dot, i) => {
       dot.style.cursor = 'pointer';
       dot.addEventListener('click', (e) => {
@@ -778,11 +1060,9 @@ function renderBonus() {
         renderAll();
       });
     });
-
     bonusContainer.appendChild(item);
   });
 
-  // Super quests
   const sqContainer = document.getElementById('superQuestList');
   sqContainer.innerHTML = '';
   SUPER_QUESTS.forEach(sq => {
@@ -795,16 +1075,201 @@ function renderBonus() {
       <span class="sq-check">${isDone ? '✅' : '⬜'}</span>`;
     item.addEventListener('click', () => {
       const idx = state.superQuestsDone.indexOf(sq.id);
-      if (idx === -1) {
-        state.superQuestsDone.push(sq.id);
-        showToast('🌟 Super Quête accomplie !');
-      } else {
-        state.superQuestsDone.splice(idx, 1);
-      }
-      saveState();
-      renderAll();
+      if (idx === -1) { state.superQuestsDone.push(sq.id); showToast('🌟 Super Quête accomplie !'); }
+      else state.superQuestsDone.splice(idx, 1);
+      saveState(); renderAll();
     });
     sqContainer.appendChild(item);
+  });
+}
+
+// ===================== STATS CHARTS =====================
+function renderStats() {
+  renderXPChart();
+  renderRadarChart();
+}
+
+function renderXPChart() {
+  const canvas = document.getElementById('xpChart');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const data = getCumulativeXP();
+
+  // Responsive sizing
+  const W = canvas.parentElement.offsetWidth || 340;
+  canvas.width = W;
+  canvas.height = 150;
+  const w = canvas.width, h = canvas.height;
+  ctx.clearRect(0, 0, w, h);
+
+  if (data.length === 0) {
+    ctx.fillStyle = '#a09880';
+    ctx.font = "14px 'Crimson Pro', serif";
+    ctx.textAlign = 'center';
+    ctx.fillText('Aucune donnée disponible', w/2, h/2);
+    return;
+  }
+
+  const pad = { top:16, right:16, bottom:30, left:36 };
+  const chartW = w - pad.left - pad.right;
+  const chartH = h - pad.top - pad.bottom;
+
+  const maxXP = Math.max(...data.map(d => d.cumul), 10);
+  const n = data.length;
+
+  // Grid lines
+  ctx.strokeStyle = 'rgba(201,168,76,0.1)';
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= 4; i++) {
+    const y = pad.top + chartH - (i / 4) * chartH;
+    ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(pad.left + chartW, y); ctx.stroke();
+    ctx.fillStyle = '#a09880';
+    ctx.font = "9px 'Cinzel', serif";
+    ctx.textAlign = 'right';
+    ctx.fillText(Math.round((i/4)*maxXP), pad.left - 4, y + 3);
+  }
+
+  // Gradient fill
+  const grad = ctx.createLinearGradient(0, pad.top, 0, pad.top + chartH);
+  grad.addColorStop(0, 'rgba(201,168,76,0.5)');
+  grad.addColorStop(1, 'rgba(201,168,76,0.02)');
+
+  const getX = i => pad.left + (n === 1 ? chartW/2 : (i / (n-1)) * chartW);
+  const getY = v => pad.top + chartH - (v / maxXP) * chartH;
+
+  // Fill area
+  ctx.beginPath();
+  ctx.moveTo(getX(0), getY(0));
+  data.forEach((d, i) => ctx.lineTo(getX(i), getY(d.cumul)));
+  ctx.lineTo(getX(n-1), pad.top + chartH);
+  ctx.lineTo(getX(0), pad.top + chartH);
+  ctx.closePath();
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // Line
+  ctx.beginPath();
+  ctx.strokeStyle = '#c9a84c';
+  ctx.lineWidth = 2;
+  ctx.lineJoin = 'round';
+  ctx.moveTo(getX(0), getY(data[0].cumul));
+  data.forEach((d, i) => ctx.lineTo(getX(i), getY(d.cumul)));
+  ctx.stroke();
+
+  // Points + labels
+  data.forEach((d, i) => {
+    const x = getX(i), y = getY(d.cumul);
+    ctx.beginPath();
+    ctx.arc(x, y, 3.5, 0, Math.PI * 2);
+    ctx.fillStyle = '#f0d080';
+    ctx.fill();
+    ctx.strokeStyle = '#0a0a12';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    // Date label (every nth to avoid clutter)
+    const skip = n > 10 ? Math.ceil(n/7) : 1;
+    if (i % skip === 0 || i === n-1) {
+      const parts = d.date.split('-');
+      const label = `${parts[2]}/${parts[1]}`;
+      ctx.fillStyle = '#a09880';
+      ctx.font = "8px 'Cinzel', serif";
+      ctx.textAlign = 'center';
+      ctx.fillText(label, x, pad.top + chartH + 14);
+    }
+  });
+}
+
+function renderRadarChart() {
+  const canvas = document.getElementById('radarChart');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = Math.min(canvas.parentElement.offsetWidth || 300, 300);
+  canvas.width = W;
+  canvas.height = 280;
+  ctx.clearRect(0, 0, W, 280);
+
+  const cx = W / 2, cy = 140, R = Math.min(cx, 120) - 10;
+  const skillIds = ['physical','cognitive','creative','career','base','relations'];
+  const skillLabels = ['⚔️ Physical','🧠 Cognitive','🎭 Creative','💼 Career','🏠 Base','🤝 Relations'];
+  const skillColors = ['#e74c3c','#3498db','#9b59b6','#f39c12','#1abc9c','#e67e22'];
+  const N = skillIds.length;
+  const maxPts = 30; // visual max for radar
+
+  // Angle for each axis
+  const angle = i => (Math.PI * 2 * i / N) - Math.PI / 2;
+
+  // Web grid (5 levels)
+  for (let level = 1; level <= 5; level++) {
+    const r = (level / 5) * R;
+    ctx.beginPath();
+    for (let i = 0; i < N; i++) {
+      const a = angle(i);
+      const x = cx + r * Math.cos(a), y = cy + r * Math.sin(a);
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+    ctx.strokeStyle = `rgba(201,168,76,${0.08 + level*0.04})`;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+
+  // Axes
+  for (let i = 0; i < N; i++) {
+    const a = angle(i);
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + R * Math.cos(a), cy + R * Math.sin(a));
+    ctx.strokeStyle = 'rgba(201,168,76,0.15)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+
+  // Data polygon
+  const vals = skillIds.map(id => Math.min(state.skillPts[id] || 0, maxPts));
+  const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, R);
+  grad.addColorStop(0, 'rgba(201,168,76,0.4)');
+  grad.addColorStop(1, 'rgba(201,168,76,0.1)');
+
+  ctx.beginPath();
+  vals.forEach((v, i) => {
+    const r = (v / maxPts) * R;
+    const a = angle(i);
+    const x = cx + r * Math.cos(a), y = cy + r * Math.sin(a);
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  });
+  ctx.closePath();
+  ctx.fillStyle = grad;
+  ctx.fill();
+  ctx.strokeStyle = '#c9a84c';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  // Skill dots + labels
+  vals.forEach((v, i) => {
+    const r = (v / maxPts) * R;
+    const a = angle(i);
+    const x = cx + r * Math.cos(a), y = cy + r * Math.sin(a);
+    ctx.beginPath();
+    ctx.arc(x, y, 4, 0, Math.PI * 2);
+    ctx.fillStyle = skillColors[i];
+    ctx.fill();
+    ctx.strokeStyle = '#0a0a12';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    // Label positions
+    const lx = cx + (R + 20) * Math.cos(a);
+    const ly = cy + (R + 20) * Math.sin(a);
+    ctx.fillStyle = skillColors[i];
+    ctx.font = "10px 'Crimson Pro', serif";
+    ctx.textAlign = Math.cos(a) > 0.1 ? 'left' : Math.cos(a) < -0.1 ? 'right' : 'center';
+    ctx.fillText(skillLabels[i], lx, ly + 4);
+
+    // Points value
+    ctx.fillStyle = '#f0d080';
+    ctx.font = "9px 'Cinzel', serif";
+    ctx.fillText(state.skillPts[skillIds[i]] || 0, lx, ly + 15);
   });
 }
 
@@ -824,14 +1289,13 @@ function renderRewards() {
         <div class="reward-name">${r.name}</div>
         <div class="reward-cost">${r.cost} XP</div>
       </div>
-      <button class="reward-btn ${canAfford ? 'can-afford' : 'cannot-afford'}" 
+      <button class="reward-btn ${canAfford ? 'can-afford' : 'cannot-afford'}"
         onclick="spendReward('${r.id}')" ${canAfford ? '' : 'disabled'}>
         ${canAfford ? 'Dépenser' : 'Insuffisant'}
       </button>`;
     container.appendChild(item);
   });
 
-  // history
   const histEl = document.getElementById('rewardHistory');
   if (state.rewardHistory.length === 0) {
     histEl.textContent = 'Aucune récompense dépensée pour le moment.';
@@ -865,6 +1329,7 @@ function showToast(msg) {
 
 // ===================== INIT =====================
 renderAll();
+window.addEventListener('resize', () => { renderStats(); });
 </script>
 </body>
 </html>
