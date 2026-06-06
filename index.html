@@ -1010,16 +1010,53 @@ function toggleQuest(qid) {
   const q = QUESTS.find(x => x.id === qid);
 
   if (idx === -1) {
+    // on coche la quête
     arr.push(qid);
+    updateSuperBonusOnQuestChange(qid, +1);  // ← mise à jour auto du Super Bonus
     showToast(`+${q.xp} XP — ${q.name}`);
   } else {
+    // on décoche la quête
     arr.splice(idx, 1);
+    updateSuperBonusOnQuestChange(qid, -1);  // ← on retire une occurrence
   }
+
   computeTotals();
   saveState();
   renderAll();
 }
 
+function updateSuperBonusOnQuestChange(qid, delta) {
+  const week = getWeekKey();
+
+  SUPER_BONUSES.forEach(sb => {
+    if (sb.questId !== qid) return;
+
+    // Initialiser la structure si nécessaire
+    if (!state.bonusProgress[sb.id]) {
+      state.bonusProgress[sb.id] = { week, count: 0, claimed: false };
+    }
+    const bp = state.bonusProgress[sb.id];
+
+    // Si on a changé de semaine, on remet à zéro
+    if (bp.week !== week) {
+      bp.week = week;
+      bp.count = 0;
+      bp.claimed = false;
+    }
+
+    if (bp.claimed) return; // rien à faire si déjà réclamé
+
+    // Ajuster le compteur
+    bp.count = Math.max(0, Math.min(sb.target, bp.count + delta));
+
+    // Si on atteint l’objectif : marquer comme réclamé
+    if (bp.count >= sb.target && !bp.claimed) {
+      bp.claimed = true;
+      showToast(`🏆 Bonus! +${sb.xpReward} XP`);
+    }
+  });
+}
+  
 function renderBonus() {
   const bonusContainer = document.getElementById('bonusList');
   bonusContainer.innerHTML = '';
@@ -1045,21 +1082,21 @@ function renderBonus() {
         <div style="font-size:12px;color:var(--text2);">${bp.count}/${sb.target} cette semaine${bp.claimed?' ✓ Réclamé!':''}</div>
       </div>`;
 
-    item.querySelectorAll('.dot').forEach((dot, i) => {
-      dot.style.cursor = 'pointer';
-      dot.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (bp.claimed) return;
-        const newCount = (i < bp.count) ? i : i + 1;
-        bp.count = Math.min(newCount, sb.target);
-        if (bp.count >= sb.target && !bp.claimed) {
-          bp.claimed = true;
-          showToast(`🏆 Bonus! +${sb.xpReward} XP`);
-        }
-        saveState();
-        renderAll();
-      });
-    });
+//    item.querySelectorAll('.dot').forEach((dot, i) => {
+//      dot.style.cursor = 'pointer';
+//      dot.addEventListener('click', (e) => {
+//        e.stopPropagation();
+//        if (bp.claimed) return;
+//        const newCount = (i < bp.count) ? i : i + 1;
+//        bp.count = Math.min(newCount, sb.target);
+//        if (bp.count >= sb.target && !bp.claimed) {
+//          bp.claimed = true;
+//          showToast(`🏆 Bonus! +${sb.xpReward} XP`);
+//        }
+//        saveState();
+//        renderAll();
+//      });
+//    });
     bonusContainer.appendChild(item);
   });
 
